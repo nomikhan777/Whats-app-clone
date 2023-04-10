@@ -4,6 +4,8 @@ import "./Sidebar.css";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 import ChatIcon from "@mui/icons-material/Chat";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { SearchOutlined } from "@mui/icons-material";
+import SidebarChat from "./SidebarChat";
 
 function Sidebar() {
   return (
@@ -14,16 +16,33 @@ function Sidebar() {
           <IconButton>
             <DonutLargeIcon />
           </IconButton>
-           <IconButton>
-          <ChatIcon />
+          <IconButton>
+            <ChatIcon />
           </IconButton>
           <IconButton>
-          <MoreVertIcon />
+            <MoreVertIcon />
           </IconButton>
         </div>
       </div>
-      <div className="sidebar__search"></div>
-      <div className="sidebar__chats"></div>
+      <div className="sidebar__search">
+        <div className="sidebar__searchContainer">
+        <SearchOutlined />
+        <input placeholder="Search or start new chat" type="text" />
+        </div>
+
+      </div>
+      <div className="sidebar__chats">
+        <SidebarChat/>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+        <h1>Sidebar chats</h1>
+      </div>
     </div>
   );
 }
