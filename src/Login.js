@@ -4,10 +4,10 @@ import { auth, provider } from './firebase'
 import { signInWithPopup } from 'firebase/auth'
 import './Login.css'
 import { useStateValue } from './StateProvider'
-import { actionTypes } from './ reducer'
+import { actionTypes } from './reducer'
 
 function Login() {
-    const [, dispatch] = useStateValue();
+    const [{}, dispatch] = useStateValue();
 
     // Function to Sign In with google
     const signIn = () => {
