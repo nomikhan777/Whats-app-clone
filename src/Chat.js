@@ -4,12 +4,42 @@ import { Avatar, IconButton } from "@mui/material";
 import { useState, useEffect } from "react";
 import InsertEmoticonIcon  from "@mui/icons-material/InsertEmoticon";
 import MicIcon  from "@mui/icons-material/Mic";
-
 import { SearchOutlined, MoreVert, AttachFile,  } from "@mui/icons-material";
+import { useParams } from 'react-router-dom'
+import { doc, getDoc, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
+import db from './firebase';
+// import { useStateValue } from './StateProvider';
+
 
 function Chat() {
   const [input, setInput] = useState("")
   const [seed, setSeed] = useState("");
+  const roomId = useParams();
+    const [roomName, setRoomName] = useState('');
+    const [messages, setMessages] = useState([]);
+
+    // const [{user}] = useStateValue();
+
+
+
+    // Whenever roomId changes (in the url) this function get roomName and its messages with respect to particular roomId
+    useEffect(() => {
+      if (roomId) {
+          const docRef = doc(db, 'rooms', roomId.roomId);
+          getDoc(docRef).then((doc) => {
+              setRoomName(doc.data().name);
+          })
+
+          const collectionRef = collection(db, 'rooms', roomId.roomId, 'messages');
+          const q = query(collectionRef, orderBy('timestamp', 'asc'));
+          onSnapshot(q, snapshot => {
+              setMessages(snapshot.docs.map(doc => (doc.data())))
+          })
+          // console.log(messages);
+      }
+  }, [roomId])
+
+
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -31,7 +61,7 @@ function Chat() {
         />
 
         <div className="chat__headerInfo">
-          <h3>Room Name</h3>
+          <h3>{roomName}</h3>
           <p>Last seen at ...</p>
         </div>
 
